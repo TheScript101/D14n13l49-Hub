@@ -44,3 +44,13 @@ game.Players.LocalPlayer.Character.Humanoid.HipHeight = tonumber(txt)
 Tab:Textbox("CameraMaxZoomDistance", "Enter Number", function(txt)
 game.Workspace.CurrentCamera.CameraMaxZoomDistance = tonumber(txt)
   end)
+Tab:Toggle("Infinite Jump (Toggle Can Not Be Turned Off)", function(bool)
+  if bool then
+loadstring(game:HttpGet("https://rawscripts.net/raw/Universal-Script-Inf-Jump-script-11981"))()
+    end
+  end)
+Tab:Toggle("NoClip GUI", function(bool)
+  if bool then
+loadstring(game:HttpGet("https://raw.githubusercontent.com/TheScript101/D14n13l49-Hub/refs/heads/main/Best%20Noclip%20GUI%20LoL"))()
+    end
+  end)
