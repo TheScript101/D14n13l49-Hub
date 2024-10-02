@@ -7,6 +7,14 @@ Tab:Toggle("Fly Gui (Can Not Be Turned Off)", function(bool)
 loadstring(game:HttpGet("https://raw.githubusercontent.com/XNEOFF/FlyGuiV3/main/FlyGuiV3.txt"))()
   end
 end)
+Tab:Toggle("Get All Tools (Might Not Work)", function(bool)
+    if not bool then
+      tool:Destroy()
+    end
+    if bool then
+loadstring(game:HttpGet("https://raw.githubusercontent.com/TheScript101/D14n13l49-Hub/refs/heads/main/Get%20All%20Tools%20LoL"))()
+    end
+  end)
 Tab:Toggle("Tp Tool", function(bool)
   if not bool then
     tool:Destroy()
