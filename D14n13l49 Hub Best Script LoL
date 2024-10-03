@@ -15,23 +15,16 @@ Tab:Toggle("Get All Tools (Might Not Work)", function(bool)
 loadstring(game:HttpGet("https://raw.githubusercontent.com/TheScript101/D14n13l49-Hub/refs/heads/main/Get%20All%20Tools%20LoL"))()
     end
   end)
-Tab:Toggle("Tp Tool", function(bool)
-  if not bool then
-    tool:Destroy()
-  end
+Tab:Toggle("Mobile Keyboard (Click X To Delete)", function(bool)
 if bool then
-  mouse = game.Players.LocalPlayer:GetMouse()
-tool = Instance.new("Tool")
-tool.RequiresHandle = false
-tool.Name = "TpTool(Equip To Use)"
-tool.Activated:connect(function()
-local pos = mouse.Hit+Vector3.new(0,2.5,0)
-pos = CFrame.new(pos.X,pos.Y,pos.Z)
-game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = pos
-end)
-tool.Parent = game.Players.LocalPlayer.Backpack
-end
-end)
+loadstring(game:HttpGet("https://rawscripts.net/raw/Universal-Script-Mobile-keyboard-6975"))()
+    end
+  end)
+Tab:Toggle("Other Mobile Keyboard (Click X To Delete)", function(bool)
+if bool then
+loadstring(game:HttpGet("https://rawscripts.net/raw/Universal-Script-Custom-Keyboard-Gui-7916"))()
+    end
+  end)
 local Tab = Window:Tab("Local Player", true)
 Tab:Label("Player")
 Tab:Textbox("WalkSpeed", "Enter Number", function(txt)
@@ -62,3 +55,36 @@ Tab:Toggle("NoClip GUI", function(bool)
 loadstring(game:HttpGet("https://raw.githubusercontent.com/TheScript101/D14n13l49-Hub/refs/heads/main/Best%20Noclip%20GUI%20LoL"))()
     end
   end)
+Tab:Toggle("Tp Tool", function(bool)
+  if not bool then
+    tool:Destroy()
+  end
+if bool then
+  mouse = game.Players.LocalPlayer:GetMouse()
+tool = Instance.new("Tool")
+tool.RequiresHandle = false
+tool.Name = "TpTool(Equip To Use)"
+tool.Activated:connect(function()
+local pos = mouse.Hit+Vector3.new(0,2.5,0)
+pos = CFrame.new(pos.X,pos.Y,pos.Z)
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = pos
+end)
+tool.Parent = game.Players.LocalPlayer.Backpack
+end
+end)
+local Tab = Window:Tab("Miscellaneous", true)
+Tab:Toggle("Ultra Instinct (Click X To Delete, - Turns On/Off)", function(bool)
+if bool then
+loadstring(game:HttpGet("https://raw.githubusercontent.com/TheScript101/D14n13l49-Hub/refs/heads/main/Ultra%20Instinct%20LoL"))()
+    end
+  end)
+local Tab = Window:Tab("Credits", true)
+Tab:Label("Owner: D14n13l49")
+Tab:Label("Coder: D14n13l49")
+Tab:Label("Some Suggestions: builder_man3475")
+Tab:Label("Tester: _the_random_dude_  ")
+Tab:Label("Tester: giganoob123")
+Tab:Label("Tester: iterii")
+Tab:Label("Tester: builder_man3475")
+Tab:Label("Tester: vovozinhadorascripts")
+Tab:Label("Credits to all these people for helping me out :)")
