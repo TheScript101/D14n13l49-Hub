@@ -1,0 +1,192 @@
+local TweenService = game:GetService("TweenService")
+local UserInputService = game:GetService("UserInputService")
+
+local gui = Instance.new("ScreenGui")
+gui.Parent = game.CoreGui
+
+local frame = Instance.new("Frame")
+frame.Size = UDim2.new(0, 300, 0, 200)
+frame.Position = UDim2.new(0.5, -150, 0.5, -100)
+frame.BackgroundColor3 = Color3.new(0.1, 0.1, 0.1)
+frame.BorderSizePixel = 0
+frame.Parent = gui
+
+local frameCorner = Instance.new("UICorner")
+frameCorner.CornerRadius = UDim.new(0, 20)
+frameCorner.Parent = frame
+
+local closeButton = Instance.new("TextButton")
+closeButton.Size = UDim2.new(0, 30, 0, 30)
+closeButton.Position = UDim2.new(1, -40, 0, 10)
+closeButton.BackgroundColor3 = Color3.new(1, 0, 0)
+closeButton.Text = "X"
+closeButton.TextColor3 = Color3.new(1, 1, 1)
+closeButton.Parent = frame
+
+local closeButtonCorner = Instance.new("UICorner")
+closeButtonCorner.CornerRadius = UDim.new(0, 15)
+closeButtonCorner.Parent = closeButton
+
+local startButton = Instance.new("TextButton")
+startButton.Size = UDim2.new(0, 100, 0, 50)
+startButton.Position = UDim2.new(0.1, 0, 0.5, -25)
+startButton.BackgroundColor3 = Color3.new(0, 1, 0)
+startButton.Text = "Start"
+startButton.TextColor3 = Color3.new(0, 0, 0)
+startButton.Parent = frame
+
+local startButtonCorner = Instance.new("UICorner")
+startButtonCorner.CornerRadius = UDim.new(0, 15)
+startButtonCorner.Parent = startButton
+
+local instructionLabel = Instance.new("TextLabel")
+instructionLabel.Size = UDim2.new(0, 200, 0, 50)
+instructionLabel.Position = UDim2.new(0, 10, 0, 10)
+instructionLabel.BackgroundTransparency = 1
+instructionLabel.TextColor3 = Color3.new(1, 1, 1)
+instructionLabel.Text = "MUI script by Jeffgaming"
+instructionLabel.Parent = frame
+
+local toggleLabel = Instance.new("TextLabel")
+toggleLabel.Size = UDim2.new(0, 200, 0, 50)
+toggleLabel.Position = UDim2.new(0, 130, 0, 60)
+toggleLabel.BackgroundTransparency = 1
+toggleLabel.TextColor3 = Color3.new(1, 1, 1)
+toggleLabel.Text = "Press - to toggle"
+toggleLabel.Parent = frame
+
+local uiStroke = Instance.new("UIStroke")
+uiStroke.Thickness = 5
+uiStroke.Parent = frame
+
+local rainbow = Instance.new("UIGradient")
+rainbow.Color = ColorSequence.new({
+    ColorSequenceKeypoint.new(0, Color3.fromRGB(255, 0, 0)),
+    ColorSequenceKeypoint.new(0.2, Color3.fromRGB(255, 127, 0)),
+    ColorSequenceKeypoint.new(0.4, Color3.fromRGB(255, 255, 0)),
+    ColorSequenceKeypoint.new(0.6, Color3.fromRGB(0, 255, 0)),
+    ColorSequenceKeypoint.new(0.8, Color3.fromRGB(0, 0, 255)),
+    ColorSequenceKeypoint.new(1, Color3.fromRGB(139, 0, 255))
+})
+rainbow.Parent = uiStroke
+
+local function animateRainbow()
+    local tween = TweenService:Create(
+        rainbow,
+        TweenInfo.new(5, Enum.EasingStyle.Linear, Enum.EasingDirection.InOut, -1),
+        {Rotation = 360}
+    )
+    tween:Play()
+end
+animateRainbow()
+
+local teleportDistance = 10
+local teleportOffset = 10
+local isRunning = false
+
+local function getDistance(pos1, pos2)
+    return (pos1 - pos2).Magnitude
+end
+
+local function stopScript()
+    isRunning = false
+    print("Teleport script stopped!") 
+    gui:Destroy()
+end
+
+closeButton.MouseButton1Click:Connect(function()
+    stopScript()
+end)
+
+startButton.MouseButton1Click:Connect(function()
+    isRunning = true
+    print("Teleport script started!")
+
+    while isRunning do
+        local player = game.Players.LocalPlayer
+        local character = player.Character or player.CharacterAdded:Wait()
+        local rootPart = character:WaitForChild("HumanoidRootPart")
+        
+        for _, otherPlayer in pairs(game.Players:GetPlayers()) do
+            if otherPlayer ~= player and otherPlayer.Character then
+                local otherRoot = otherPlayer.Character:FindFirstChild("HumanoidRootPart")
+                
+                if otherRoot and getDistance(rootPart.Position, otherRoot.Position) <= teleportDistance then
+                    local otherLookVector = otherRoot.CFrame.LookVector
+                    local teleportPosition = otherRoot.Position - (otherLookVector * teleportOffset)
+                    rootPart.CFrame = CFrame.new(teleportPosition, otherRoot.Position)
+                end
+            end
+        end
+        wait(0.1)
+    end
+end)
+
+local function toggleScript()
+    isRunning = not isRunning
+    if isRunning then
+        print("Teleport script started!")
+        local player = game.Players.LocalPlayer
+        local character = player.Character or player.CharacterAdded:Wait()
+        local rootPart = character:WaitForChild("HumanoidRootPart")
+
+        while isRunning do
+            for _, otherPlayer in pairs(game.Players:GetPlayers()) do
+                if otherPlayer ~= player and otherPlayer.Character then
+                    local otherRoot = otherPlayer.Character:FindFirstChild("HumanoidRootPart")
+                    
+                    if otherRoot and getDistance(rootPart.Position, otherRoot.Position) <= teleportDistance then
+                        local otherLookVector = otherRoot.CFrame.LookVector
+                        local teleportPosition = otherRoot.Position - (otherLookVector * teleportOffset)
+                        rootPart.CFrame = CFrame.new(teleportPosition, otherRoot.Position)
+                    end
+                end
+            end
+            wait(0.1)
+        end
+    else
+        print("Teleport script stopped!")
+    end
+end
+
+UserInputService.InputBegan:Connect(function(input)
+    if input.UserInputType == Enum.UserInputType.Keyboard and input.KeyCode == Enum.KeyCode.Minus then
+        toggleScript()
+    end
+end)
+
+local dragging
+local dragInput
+local dragStart
+local startPos
+
+local function update(input)
+    local delta = input.Position - dragStart
+    frame.Position = UDim2.new(startPos.X.Scale, startPos.X.Offset + delta.X, startPos.Y.Scale, startPos.Y.Offset + delta.Y)
+end
+
+frame.InputBegan:Connect(function(input)
+    if input.UserInputType == Enum.UserInputType.MouseButton1 then
+        dragging = true
+        dragStart = input.Position
+        startPos = frame.Position
+        
+        input.Changed:Connect(function()
+            if input.UserInputState == Enum.UserInputState.End then
+                dragging = false
+            end
+        end)
+    end
+end)
+
+frame.InputChanged:Connect(function(input)
+    if input.UserInputType == Enum.UserInputType.MouseMovement then
+        dragInput = input
+    end
+end)
+
+UserInputService.InputChanged:Connect(function(input)
+    if input == dragInput and dragging then
+        update(input)
+    end
+end)
