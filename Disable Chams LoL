@@ -1,0 +1,59 @@
+-- Script to disable the highlight functionality
+
+
+
+local CoreGui = game:FindService("CoreGui")
+
+local Storage = CoreGui:FindFirstChild("Highlight_Storage")
+
+
+
+if Storage then
+
+    -- Destroy all existing highlights
+
+    for _, highlight in pairs(Storage:GetChildren()) do
+
+        highlight:Destroy()
+
+    end
+
+    
+
+    -- Optionally, you can also remove the Storage folder itself
+
+    Storage:Destroy()
+
+end
+
+
+
+-- If you want to disconnect any connections related to highlighting, 
+
+-- you would need to keep track of those connections in the original script.
+
+-- Assuming you have a way to access the connections table, you can do something like this:
+
+
+
+local Players = game:FindService("Players")
+
+local connections = {}  -- This should be the same connections table from the original script
+
+
+
+for _, plr in pairs(Players:GetPlayers()) do
+
+    if connections[plr] then
+
+        connections[plr]:Disconnect()
+
+        connections[plr] = nil  -- Clean up the reference
+
+    end
+
+end
+
+
+
+print("Highlight functionality has been disabled.")
