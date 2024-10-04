@@ -80,7 +80,11 @@ if bool then
 loadstring(game:HttpGet("https://raw.githubusercontent.com/TheScript101/D14n13l49-Hub/refs/heads/main/Ultra%20Instinct%20LoL"))()
     end
   end)
-
+Tab:Toggle("Fe Hug Gui (R6)", function(bool)
+if bool then
+loadstring(game:HttpGet("https://raw.githubusercontent.com/TheScript101/D14n13l49-Hub/refs/heads/main/Fe%20Hug%20GUI%20LoL"))()
+    end
+  end)
 local Tab = Window:Tab("Chams", true)
 Tab:Label("Chams")
 Tab:Label("Note: If You Use Chams Please use only one of them.")
