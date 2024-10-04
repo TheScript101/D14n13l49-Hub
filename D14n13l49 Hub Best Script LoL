@@ -113,3 +113,39 @@ Tab:Toggle("Purple Chams (Do Not Spam Toggle)", function(bool)
    if bool then
 loadstring(game:HttpGet("https://raw.githubusercontent.com/TheScript101/D14n13l49-Hub/refs/heads/main/Purple%20Chams%20LoL"))()
       end
+  end)
+Tab:Toggle("Pink Chams (Do Not Spam Toggle)", function(bool)
+   if bool then
+loadstring(game:HttpGet("https://raw.githubusercontent.com/TheScript101/D14n13l49-Hub/refs/heads/main/Pink%20Chams%20LoL"))()
+      end
+  end)
+Tab:Toggle("Cyan Chams (Do Not Spam Toggle)", function(bool)
+   if bool then
+loadstring(game:HttpGet("https://raw.githubusercontent.com/TheScript101/D14n13l49-Hub/refs/heads/main/Cyan%20Chams%20LoL"))()
+      end
+  end)
+Tab:Toggle("Silver Chams (Do Not Spam Toggle)", function(bool)
+   if bool then
+loadstring(game:HttpGet("https://raw.githubusercontent.com/TheScript101/D14n13l49-Hub/refs/heads/main/Silver%20Chams%20LoL"))()
+      end
+  end)
+Tab:Toggle("Black Chams (Do Not Spam Toggle)", function(bool)
+   if bool then
+loadstring(game:HttpGet("https://raw.githubusercontent.com/TheScript101/D14n13l49-Hub/refs/heads/main/Black%20Chams%20LoL"))()
+      end
+  end)
+Tab:Toggle("Turn Off Chams", function(bool)
+if bool then
+loadstring(game:HttpGet("https://raw.githubusercontent.com/TheScript101/D14n13l49-Hub/refs/heads/main/Disable%20Chams%20LoL"))()
+    end
+  end)
+local Tab = Window:Tab("Credits", true)
+Tab:Label("Owner: D14n13l49")
+Tab:Label("Coder: D14n13l49")
+Tab:Label("Some Suggestions: builder_man3475")
+Tab:Label("Tester: _the_random_dude_  ")
+Tab:Label("Tester: giganoob123")
+Tab:Label("Tester: iterii")
+Tab:Label("Tester: builder_man3475")
+Tab:Label("Tester: vovozinhadorascripts")
+Tab:Label("Credits to all these people for helping me out :)")
