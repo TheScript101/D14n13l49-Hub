@@ -84,6 +84,11 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/TheScript101/D14n13l4
 local Tab = Window:Tab("Chams", true)
 Tab:Label("Chams")
 Tab:Label("Note: If You Use Chams Please use only one of them.")
+Tab:Toggle("Turn Off Chams", function(bool)
+if bool then
+loadstring(game:HttpGet("https://raw.githubusercontent.com/TheScript101/D14n13l49-Hub/refs/heads/main/Disable%20Chams%20LoL"))()
+    end
+  end)
 Tab:Toggle("Red Chams (Do Not Spam Toggle)", function(bool)
    if bool then
 loadstring(game:HttpGet("https://raw.githubusercontent.com/TheScript101/D14n13l49-Hub/refs/heads/main/Red%20Chams%20LoL"))()
@@ -133,11 +138,6 @@ Tab:Toggle("Black Chams (Do Not Spam Toggle)", function(bool)
    if bool then
 loadstring(game:HttpGet("https://raw.githubusercontent.com/TheScript101/D14n13l49-Hub/refs/heads/main/Black%20Chams%20LoL"))()
       end
-  end)
-Tab:Toggle("Turn Off Chams", function(bool)
-if bool then
-loadstring(game:HttpGet("https://raw.githubusercontent.com/TheScript101/D14n13l49-Hub/refs/heads/main/Disable%20Chams%20LoL"))()
-    end
   end)
 local Tab = Window:Tab("Credits", true)
 Tab:Label("Owner: D14n13l49")
