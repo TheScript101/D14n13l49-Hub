@@ -2,28 +2,17 @@ local Library = loadstring(game:HttpGet("https://raw.githubusercontent.com/Never
 local Window = Library:Create("D14n13l49 Hub", "Universal")
 local Tab = Window:Tab("Main", true)
 Tab:Label("Main")
-Tab:Toggle("Fly Gui (Can Not Be Turned Off)", function(bool)
-  if bool then
+Tab:Button("Fly Gui", function()
 loadstring(game:HttpGet("https://raw.githubusercontent.com/XNEOFF/FlyGuiV3/main/FlyGuiV3.txt"))()
-  end
 end)
-Tab:Toggle("Get All Tools (Might Not Work)", function(bool)
-    if not bool then
-      tool:Destroy()
-    end
-    if bool then
+Tab:Button("Get All Tools (Might Not Work)", function()
 loadstring(game:HttpGet("https://raw.githubusercontent.com/TheScript101/D14n13l49-Hub/refs/heads/main/Get%20All%20Tools%20LoL"))()
-    end
   end)
-Tab:Toggle("Mobile Keyboard (Click X To Delete)", function(bool)
-if bool then
+Tab:Button("Mobile Keyboard (Click X To Delete)", function()
 loadstring(game:HttpGet("https://rawscripts.net/raw/Universal-Script-Mobile-keyboard-6975"))()
-    end
   end)
-Tab:Toggle("Other Mobile Keyboard (Click X To Delete)", function(bool)
-if bool then
+Tab:Button("Other Mobile Keyboard (Click X To Delete)", function()
 loadstring(game:HttpGet("https://rawscripts.net/raw/Universal-Script-Custom-Keyboard-Gui-7916"))()
-    end
   end)
 local Tab = Window:Tab("Local Player", true)
 Tab:Label("Player")
@@ -45,15 +34,11 @@ game.Players.LocalPlayer.Character.Humanoid.HipHeight = tonumber(txt)
 Tab:Textbox("CameraMaxZoomDistance", "Enter Number", function(txt)
 game.Workspace.CurrentCamera.CameraMaxZoomDistance = tonumber(txt)
   end)
-Tab:Toggle("Infinite Jump (Toggle Can Not Be Turned Off)", function(bool)
-  if bool then
+Tab:Button("Infinite Jump", function()
 loadstring(game:HttpGet("https://rawscripts.net/raw/Universal-Script-Inf-Jump-script-11981"))()
-    end
   end)
-Tab:Toggle("NoClip GUI", function(bool)
-  if bool then
+Tab:Button("NoClip GUI", function()
 loadstring(game:HttpGet("https://raw.githubusercontent.com/TheScript101/D14n13l49-Hub/refs/heads/main/Best%20Noclip%20GUI%20LoL"))()
-    end
   end)
 Tab:Toggle("Tp Tool", function(bool)
   if not bool then
@@ -75,74 +60,48 @@ end)
 
 local Tab = Window:Tab("Miscellaneous", true)
 Tab:Label("Misc")
-Tab:Toggle("Ultra Instinct (Click X To Delete, - Turns On/Off)", function(bool)
-if bool then
+Tab:Button("Ultra Instinct (Click X To Delete, - Turns On/Off)", function()
 loadstring(game:HttpGet("https://raw.githubusercontent.com/TheScript101/D14n13l49-Hub/refs/heads/main/Ultra%20Instinct%20LoL"))()
-    end
   end)
-Tab:Toggle("Fe Hug Gui (R6)", function(bool)
-if bool then
+Tab:Button("Fe Hug Gui (R6)", function()
 loadstring(game:HttpGet("https://raw.githubusercontent.com/TheScript101/D14n13l49-Hub/refs/heads/main/Fe%20Hug%20GUI%20LoL"))()
-    end
   end)
 local Tab = Window:Tab("Chams", true)
 Tab:Label("Chams")
 Tab:Label("Note: If You Use Chams Please use only one of them.")
-Tab:Toggle("Turn Off Chams", function(bool)
-if bool then
+Tab:Button("Turn Off Chams", function()
 loadstring(game:HttpGet("https://raw.githubusercontent.com/TheScript101/D14n13l49-Hub/refs/heads/main/Disable%20Chams%20LoL"))()
-    end
   end)
-Tab:Toggle("Red Chams (Do Not Spam Toggle)", function(bool)
-   if bool then
+Tab:Button("Red Chams (Do Not Spam)", function()
 loadstring(game:HttpGet("https://raw.githubusercontent.com/TheScript101/D14n13l49-Hub/refs/heads/main/Red%20Chams%20LoL"))()
-      end
   end)
-Tab:Toggle("Yellow Chams (Do Not Spam Toggle)", function(bool)
-   if bool then
+Tab:Button("Yellow Chams (Do Not Spam)", function()
 loadstring(game:HttpGet("https://raw.githubusercontent.com/TheScript101/D14n13l49-Hub/refs/heads/main/Yellow%20Chams%20LoL"))()
-      end
   end)
-Tab:Toggle("Orange Chams (Do Not Spam Toggle)", function(bool)
-   if bool then
+Tab:Button("Orange Chams (Do Not Spam)", function()
 loadstring(game:HttpGet("https://raw.githubusercontent.com/TheScript101/D14n13l49-Hub/refs/heads/main/Orange%20Chams%20LoL"))()
-      end
   end)
-Tab:Toggle("Blue Chams (Do Not Spam Toggle)", function(bool)
-   if bool then
+Tab:Button("Blue Chams (Do Not Spam)", function()
 loadstring(game:HttpGet("https://raw.githubusercontent.com/TheScript101/D14n13l49-Hub/refs/heads/main/Blue%20Chams%20LoL"))()
-      end
   end)
-Tab:Toggle("Green Chams (Do Not Spam Toggle)", function(bool)
-   if bool then
+Tab:Button("Green Chams (Do Not Spam)", function()
 loadstring(game:HttpGet("https://raw.githubusercontent.com/TheScript101/D14n13l49-Hub/refs/heads/main/Green%20Chams%20LoL"))()
-      end
   end)
-Tab:Toggle("Purple Chams (Do Not Spam Toggle)", function(bool)
-   if bool then
+Tab:Button("Purple Chams Chams (Do Not Spam)", function()
 loadstring(game:HttpGet("https://raw.githubusercontent.com/TheScript101/D14n13l49-Hub/refs/heads/main/Purple%20Chams%20LoL"))()
-      end
   end)
-Tab:Toggle("Pink Chams (Do Not Spam Toggle)", function(bool)
-   if bool then
+Tab:Button("Pink Chams (Do Not Spam)", function()
 loadstring(game:HttpGet("https://raw.githubusercontent.com/TheScript101/D14n13l49-Hub/refs/heads/main/Pink%20Chams%20LoL"))()
-      end
-  end)
-Tab:Toggle("Cyan Chams (Do Not Spam Toggle)", function(bool)
-   if bool then
+    end)
+Tab:Button("Cyan Chams (Do Not Spam)", function()
 loadstring(game:HttpGet("https://raw.githubusercontent.com/TheScript101/D14n13l49-Hub/refs/heads/main/Cyan%20Chams%20LoL"))()
-      end
-  end)
-Tab:Toggle("Silver Chams (Do Not Spam Toggle)", function(bool)
-   if bool then
+        end)
+Tab:Button("Silver Chams (Do Not Spam)", function()
 loadstring(game:HttpGet("https://raw.githubusercontent.com/TheScript101/D14n13l49-Hub/refs/heads/main/Silver%20Chams%20LoL"))()
-      end
   end)
-Tab:Toggle("Black Chams (Do Not Spam Toggle)", function(bool)
-   if bool then
+Tab:Button("Black Chams (Do Not Spam)", function()
 loadstring(game:HttpGet("https://raw.githubusercontent.com/TheScript101/D14n13l49-Hub/refs/heads/main/Black%20Chams%20LoL"))()
-      end
-  end)
+    end)
 local Tab = Window:Tab("Credits", true)
 Tab:Label("Owner: D14n13l49")
 Tab:Label("Coder: D14n13l49")
@@ -153,3 +112,90 @@ Tab:Label("Tester: iterii")
 Tab:Label("Tester: builder_man3475")
 Tab:Label("Tester: vovozinhadorascripts")
 Tab:Label("Credits to all these people for helping me out :)")
+
+if game.PlaceId == 10449761463 then
+loadstring(game:HttpGet("https://raw.githubusercontent.com/NeverJar/ImpactUI/main/ImpactUI.lua"))()
+local Window = Library:Create("D14n13l49 Hub", "TSB")
+local Tab = Window:Tab("Local Player", true)
+Tab:Label("Player")
+Tab:Textbox("Gravity", "Enter Number", function(txt)
+game.Workspace.Gravity = tonumber(txt)
+  end)
+Tab:Textbox("FOV", "Enter Number", function(txt)
+game.Workspace.CurrentCamera.FieldOfView = tonumber(txt)
+  end)
+Tab:Textbox("HipHeight", "Enter Number", function(txt)
+game.Players.LocalPlayer.Character.Humanoid.HipHeight = tonumber(txt)
+  end)
+Tab:Textbox("CameraMaxZoomDistance", "Enter Number", function(txt)
+game.Workspace.CurrentCamera.CameraMaxZoomDistance = tonumber(txt)
+  end)
+local Tab = Window:Tab("Miscellaneous", true)
+Tab:Label("Misc")
+Tab:Button("Ultra Instinct (Click X To Delete, - Turns On/Off)", function(bool)
+loadstring(game:HttpGet("https://raw.githubusercontent.com/TheScript101/D14n13l49-Hub/refs/heads/main/Ultra%20Instinct%20LoL"))()
+  end)
+Tab:Button("Fe Hug Gui (R6)", function()
+loadstring(game:HttpGet("https://raw.githubusercontent.com/TheScript101/D14n13l49-Hub/refs/heads/main/Fe%20Hug%20GUI%20LoL"))()
+  end)
+local Tab = Window:Tab("Chams", true)
+Tab:Label("Chams")
+Tab:Label("Note: If You Use Chams Please use only one of them.")
+Tab:Button("Turn Off Chams", function()
+loadstring(game:HttpGet("https://raw.githubusercontent.com/TheScript101/D14n13l49-Hub/refs/heads/main/Disable%20Chams%20LoL"))()
+  end)
+Tab:Button("Red Chams (Do Not Spam)", function()
+loadstring(game:HttpGet("https://raw.githubusercontent.com/TheScript101/D14n13l49-Hub/refs/heads/main/Red%20Chams%20LoL"))()
+  end)
+Tab:Button("Yellow Chams (Do Not Spam)", function()
+loadstring(game:HttpGet("https://raw.githubusercontent.com/TheScript101/D14n13l49-Hub/refs/heads/main/Yellow%20Chams%20LoL"))()
+  end)
+Tab:Button("Orange Chams (Do Not Spam)", function()
+loadstring(game:HttpGet("https://raw.githubusercontent.com/TheScript101/D14n13l49-Hub/refs/heads/main/Orange%20Chams%20LoL"))()
+  end)
+Tab:Button("Blue Chams (Do Not Spam)", function()
+loadstring(game:HttpGet("https://raw.githubusercontent.com/TheScript101/D14n13l49-Hub/refs/heads/main/Blue%20Chams%20LoL"))()
+  end)
+Tab:Button("Green Chams (Do Not Spam)", function()
+loadstring(game:HttpGet("https://raw.githubusercontent.com/TheScript101/D14n13l49-Hub/refs/heads/main/Green%20Chams%20LoL"))()
+  end)
+Tab:Button("Purple Chams Chams (Do Not Spam)", function()
+loadstring(game:HttpGet("https://raw.githubusercontent.com/TheScript101/D14n13l49-Hub/refs/heads/main/Purple%20Chams%20LoL"))()
+  end)
+Tab:Button("Pink Chams (Do Not Spam)", function()
+loadstring(game:HttpGet("https://raw.githubusercontent.com/TheScript101/D14n13l49-Hub/refs/heads/main/Pink%20Chams%20LoL"))()
+    end)
+Tab:Button("Cyan Chams (Do Not Spam)", function()
+loadstring(game:HttpGet("https://raw.githubusercontent.com/TheScript101/D14n13l49-Hub/refs/heads/main/Cyan%20Chams%20LoL"))()
+        end)
+Tab:Button("Silver Chams (Do Not Spam)", function()
+loadstring(game:HttpGet("https://raw.githubusercontent.com/TheScript101/D14n13l49-Hub/refs/heads/main/Silver%20Chams%20LoL"))()
+  end)
+Tab:Button("Black Chams (Do Not Spam)", function()
+loadstring(game:HttpGet("https://raw.githubusercontent.com/TheScript101/D14n13l49-Hub/refs/heads/main/Black%20Chams%20LoL"))()
+    end)
+local Tab = Window:Tab("Credits", true)
+Tab:Label("Owner: D14n13l49")
+Tab:Label("Coder: D14n13l49")
+Tab:Label("Some Suggestions: builder_man3475")
+Tab:Label("Tester: _the_random_dude_  ")
+Tab:Label("Tester: giganoob123")
+Tab:Label("Tester: iterii")
+Tab:Label("Tester: builder_man3475")
+Tab:Label("Tester: vovozinhadorascripts")
+Tab:Label("Credits to all these people for helping me out :)")
+  local Tab = Window:Tab("MoveSets", true)
+Tab:Label("MoveSets")
+Tab:Button("Jun MoveSet (Use Saitama)", function()
+loadstring(game:HttpGet('https://raw.githubusercontent.com/Kenjihin69/Kenjihin69/refs/heads/main/Tp%20exploit%20saitama%20to%20jun'))()
+  end)
+Tab:Button("Sonic MoveSet (Use Saitama)", function()
+loadstring(game:HttpGet("https://pastebin.com/raw/7V1mUBtQ"))()
+  end)
+end
+Tab:Button("Sukuna MoveSet (Use Blade Master", function()
+loadstring(game:HttpGet("https://raw.githubusercontent.com/zyrask/Nexus-Base/main/atomic-blademaster%20to%20sukuna"))()
+end)
+Tab:Button("Gojo MoveSet (Use Saitama", function()
+loadstring(game:HttpGet("https://raw.githubusercontent.com/skibiditoiletfan2007/BaldyToSorcerer/main/Latest.lua"))()
+end)
