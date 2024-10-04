@@ -72,19 +72,44 @@ end)
 tool.Parent = game.Players.LocalPlayer.Backpack
 end
 end)
+
 local Tab = Window:Tab("Miscellaneous", true)
+Tab:Label("Misc")
+Tab:Label("Note: If You Use Chams Please use only one of them.")
 Tab:Toggle("Ultra Instinct (Click X To Delete, - Turns On/Off)", function(bool)
 if bool then
 loadstring(game:HttpGet("https://raw.githubusercontent.com/TheScript101/D14n13l49-Hub/refs/heads/main/Ultra%20Instinct%20LoL"))()
     end
   end)
-local Tab = Window:Tab("Credits", true)
-Tab:Label("Owner: D14n13l49")
-Tab:Label("Coder: D14n13l49")
-Tab:Label("Some Suggestions: builder_man3475")
-Tab:Label("Tester: _the_random_dude_  ")
-Tab:Label("Tester: giganoob123")
-Tab:Label("Tester: iterii")
-Tab:Label("Tester: builder_man3475")
-Tab:Label("Tester: vovozinhadorascripts")
-Tab:Label("Credits to all these people for helping me out :)")
+Window:Tab("Chams", true)
+Tab:Label("Chams")
+Tab:Label("Note: If You Use Chams Please use only one of them.")
+Tab:Toggle("Red Chams (Do Not Spam Toggle)", function(bool)
+   if bool then
+loadstring(game:HttpGet("https://raw.githubusercontent.com/TheScript101/D14n13l49-Hub/refs/heads/main/Red%20Chams%20LoL"))()
+      end
+  end)
+Tab:Toggle("Yellow Chams (Do Not Spam Toggle)", function(bool)
+   if bool then
+loadstring(game:HttpGet("https://raw.githubusercontent.com/TheScript101/D14n13l49-Hub/refs/heads/main/Yellow%20Chams%20LoL"))()
+      end
+  end)
+Tab:Toggle("Orange Chams (Do Not Spam Toggle)", function(bool)
+   if bool then
+loadstring(game:HttpGet("https://raw.githubusercontent.com/TheScript101/D14n13l49-Hub/refs/heads/main/Orange%20Chams%20LoL"))()
+      end
+  end)
+Tab:Toggle("Blue Chams (Do Not Spam Toggle)", function(bool)
+   if bool then
+loadstring(game:HttpGet("https://raw.githubusercontent.com/TheScript101/D14n13l49-Hub/refs/heads/main/Blue%20Chams%20LoL"))()
+      end
+  end)
+Tab:Toggle("Green Chams (Do Not Spam Toggle)", function(bool)
+   if bool then
+loadstring(game:HttpGet("https://raw.githubusercontent.com/TheScript101/D14n13l49-Hub/refs/heads/main/Green%20Chams%20LoL"))()
+      end
+  end)
+Tab:Toggle("Purple Chams (Do Not Spam Toggle)", function(bool)
+   if bool then
+loadstring(game:HttpGet("https://raw.githubusercontent.com/TheScript101/D14n13l49-Hub/refs/heads/main/Purple%20Chams%20LoL"))()
+      end
