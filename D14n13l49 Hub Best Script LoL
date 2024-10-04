@@ -75,14 +75,13 @@ end)
 
 local Tab = Window:Tab("Miscellaneous", true)
 Tab:Label("Misc")
-Tab:Label("Note: If You Use Chams Please use only one of them.")
 Tab:Toggle("Ultra Instinct (Click X To Delete, - Turns On/Off)", function(bool)
 if bool then
 loadstring(game:HttpGet("https://raw.githubusercontent.com/TheScript101/D14n13l49-Hub/refs/heads/main/Ultra%20Instinct%20LoL"))()
     end
   end)
 
-Window:Tab("Chams", true)
+local Tab = Window:Tab("Chams", true)
 Tab:Label("Chams")
 Tab:Label("Note: If You Use Chams Please use only one of them.")
 Tab:Toggle("Red Chams (Do Not Spam Toggle)", function(bool)
