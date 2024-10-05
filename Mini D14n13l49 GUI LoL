@@ -1,0 +1,237 @@
+local DoomspirebrickbattleGUI = Instance.new("ScreenGui")
+local Main = Instance.new("Frame")
+local Fly = Instance.new("TextButton")
+local Name = Instance.new("TextLabel")
+local Invisible = Instance.new("TextButton")
+local InfiniteJump = Instance.new("TextButton")
+local BTools = 
+Instance.new("TextButton")
+local Admin = Instance.new("TextButton")
+local SpectateGUI = Instance.new("TextButton")
+
+-- Scripts
+
+DoomspirebrickbattleGUI.Name = "D14n13l49 | GUI"
+DoomspirebrickbattleGUI.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
+
+Main.Name = "Main"
+Main.Parent = DoomspirebrickbattleGUI
+Main.BackgroundColor3 = Color3.new(0.168627, 0.168627, 0.168627)
+Main.Position = UDim2.new(0.0901835635, 0, 0.104368925, 0)
+Main.Size = UDim2.new(0, 108, 0, 363)
+Main.Active = true
+Main.Draggable = true
+
+Fly.Name = "Fly (Hold)"
+Fly.Parent = Main
+Fly.BackgroundColor3 = Color3.new(0.168627, 0.168627, 0.168627)
+Fly.BorderSizePixel = 0
+Fly.Position = UDim2.new(0, 0, 0.181818187, 0)
+Fly.Size = UDim2.new(0, 108, 0, 50)
+Fly.Text = "Fly"
+Fly.TextColor3 = Color3.new(1, 0.333333, 0)
+Fly.TextScaled = true
+Fly.Font = Enum.Font.Fantasy
+Fly.MouseButton1Down:Connect(function()
+    local player = game.Players.LocalPlayer
+    local character = player.Character or player.CharacterAdded:Wait()
+    local humanoid = character:WaitForChild("Humanoid")
+    local torso = character:WaitForChild("HumanoidRootPart")
+
+    local flying = false
+    local speed = 50
+    local UserInputService = game:GetService("UserInputService")
+    
+    local function startFlying()
+        flying = true
+        local bg = Instance.new("BodyGyro", torso)
+        bg.P = 9e4
+        bg.MaxTorque = Vector3.new(9e9, 9e9, 9e9)
+
+        local bv = Instance.new("BodyVelocity", torso)
+        bv.Velocity = Vector3.new(0, 0, 0)
+        bv.MaxForce = Vector3.new(9e9, 9e9, 9e9)
+
+        while flying do
+            wait()
+            local camera = workspace.CurrentCamera
+            local lookVector = camera.CFrame.LookVector
+            
+            bv.Velocity = lookVector * speed + Vector3.new(0, 10, 0) -- Adjust the Y value for altitude
+            bg.CFrame = camera.CFrame
+        end
+
+        bg:Destroy()
+        bv:Destroy()
+    end
+
+    local function stopFlying()
+        flying = false
+    end
+
+    -- Toggle flying on button click
+    Fly.MouseButton1Down:Connect(function()
+        if flying then
+            stopFlying()
+        else
+            startFlying()
+        end
+    end)
+
+    -- Add mobile support
+    local function onTouchStarted()
+        if flying then
+            stopFlying()
+        else
+            startFlying()
+        end
+    end
+
+    local function onTouchEnded()
+        if flying then
+            stopFlying()
+        end
+    end
+
+    -- Mobile touch input detection
+    UserInputService.TouchTap:Connect(onTouchStarted)
+    UserInputService.TouchEnded:Connect(onTouchEnded)
+end)
+
+Name.Name = "Name"
+Name.Parent = Main
+Name.BackgroundColor3 = Color3.new(0.168627, 0.168627, 0.168627)
+Name.BorderSizePixel = 0
+Name.Size = UDim2.new(0, 108, 0, 50)
+Name.Font = Enum.Font.Fantasy
+Name.Text = "Functions"
+Name.TextColor3 = Color3.new(1, 0.666667, 0.498039)
+Name.TextScaled = true
+
+Invisible.Name = "Invisible"
+Invisible.Parent = Main
+Invisible.BackgroundColor3 = Color3.new(0.168627, 0.168627, 0.168627)
+Invisible.BorderSizePixel = 0
+Invisible.Position = UDim2.new(0, 0, 0.319559216, 0)
+Invisible.Size = UDim2.new(0, 108, 0, 50)
+Invisible.Text = "Invisible"
+Invisible.TextColor3 = Color3.new(1, 0.333333, 0)
+Invisible.TextScaled = true
+Invisible.Font = Enum.Font.Fantasy
+Invisible.MouseButton1Down:Connect(function()
+    local player = game.Players.LocalPlayer
+    local position = player.Character.HumanoidRootPart.Position
+    wait(0.1)
+    player.Character:MoveTo(position + Vector3.new(0, 1000000, 0))
+    wait(0.1)
+    local humanoidrootpart = player.Character.HumanoidRootPart:Clone()
+    wait(0.1)
+    player.Character.HumanoidRootPart:Destroy()
+    humanoidrootpart.Parent = player.Character
+    player.Character:MoveTo(position)
+    wait()
+    game.Players.LocalPlayer.Character.Torso.Transparency = 1
+    game.Players.LocalPlayer.Character.Head.Transparency = 1
+    game.Players.LocalPlayer.Character["Left Arm"].Transparency = 1
+    game.Players.LocalPlayer.Character["Right Arm"].Transparency = 1
+    game.Players.LocalPlayer.Character["Left Leg"].Transparency = 1
+    game.Players.LocalPlayer.Character["Right Leg"].Transparency = 1
+    game.Players.LocalPlayer.Character.Humanoid:RemoveAccessories()
+    game.Players.LocalPlayer.Character.Head.face:Remove()
+end)
+
+InfiniteJump.Name = "Infinite Jump"
+InfiniteJump.Parent = Main
+InfiniteJump.BackgroundColor3 = Color3.new(0.168627, 0.168627, 0.168627)
+InfiniteJump.BorderSizePixel = 0
+InfiniteJump.Position = UDim2.new(0, 0, 0.446280986, 0)
+InfiniteJump.Size = UDim2.new(0, 108, 0, 50)
+InfiniteJump.Text = "Infinite Jump"
+InfiniteJump.TextColor3 = Color3.new(1, 0.333333, 0)
+InfiniteJump.TextScaled = true
+InfiniteJump.Font = Enum.Font.Fantasy
+InfiniteJump.MouseButton1Down:Connect(function()
+    local InfiniteJumpEnabled = true
+    game:GetService("UserInputService").JumpRequest:Connect(function()
+        if InfiniteJumpEnabled then
+            game.Players.LocalPlayer.Character:FindFirstChildOfClass('Humanoid'):ChangeState("Jumping")
+        end
+    end)
+end)
+
+BTools.Name = "BTools"
+BTools.Parent = Main
+BTools.BackgroundColor3 = Color3.new(0.168627, 0.168627, 0.168627)
+BTools.BorderSizePixel = 0
+BTools.Position = UDim2.new(0, 0, 0.584022045, 0)
+BTools.Size = UDim2.new(0, 108, 0, 50)
+BTools.Text = "F3X"
+BTools.TextColor3 = Color3.new(1, 0.333333, 0)
+BTools.TextScaled = true
+BTools.Font = Enum.Font.Fantasy
+BTools.MouseButton1Down:Connect(function()
+loadstring(game:GetObjects("rbxassetid://6695644299")[1].Source)()
+    end)
+Admin.Name = "Admin"
+Admin.Parent = Main
+Admin.BackgroundColor3 = Color3.new(0.168627, 0.168627, 0.168627)
+Admin.BorderSizePixel = 0
+Admin.Position = UDim2.new(0, 0, 0.721763074, 0)
+Admin.Size = UDim2.new(0, 108, 0, 50)
+Admin.Text = "REMOVED"
+Admin.TextColor3 = Color3.new(1, 0.333333, 0)
+Admin.TextScaled = true
+Admin.TextSize = 14
+Admin.TextWrapped = true
+Admin.MouseButton1Down:connect(function()
+    end)
+SpectateGUI.Name = "Spectate GUI"
+SpectateGUI.Parent = Main
+SpectateGUI.BackgroundColor3 = Color3.new(0.168627, 0.168627, 0.168627)
+SpectateGUI.BorderSizePixel = 0
+SpectateGUI.Position = UDim2.new(0, 0, 0.862258911, 0)
+SpectateGUI.Size = UDim2.new(0, 108, 0, 50)
+SpectateGUI.Text = "Spectate GUI"
+SpectateGUI.TextColor3 = Color3.new(1, 0.333333, 0)
+SpectateGUI.TextScaled = true
+SpectateGUI.TextSize = 14
+SpectateGUI.TextWrapped = true
+SpectateGUI.MouseButton1Down:connect(function()
+	gui = Instance.new("ScreenGui",game.Players.LocalPlayer.PlayerGui)
+nextb = Instance.new("TextButton", gui)
+nextb.Position = UDim2.new(0.88,0,0.9,0)
+nextb.Size = UDim2.new(0.1,0,0.07,0)
+nextb.Style = Enum.ButtonStyle.RobloxRoundDropdownButton
+nextb.Text = "Next"
+prevb = nextb:Clone()
+prevb.Position = UDim2.new(0.02,0,0.9,0)
+prevb.Text = "Previous"
+prevb.Parent = gui
+plrNum = 1
+for i,v in pairs(game.Players:GetPlayers()) do
+if i == plrNum then
+game.Workspace.Camera.CameraSubject = v.Character.Humanoid
+end
+end
+ 
+prevb.MouseButton1Down:connect(function()
+if plrNum ~= 1 then
+plrNum = plrNum - 1
+end
+for i,v in pairs(game.Players:GetPlayers()) do
+if i == plrNum then
+game.Workspace.Camera.CameraSubject = v.Character.Humanoid
+end
+end
+end)
+nextb.MouseButton1Down:connect(function()
+if plrNum < #game.Players:GetPlayers() then
+plrNum = plrNum + 1
+for i,v in pairs(game.Players:GetPlayers()) do
+if i == plrNum then
+game.Workspace.Camera.CameraSubject = v.Character.Humanoid
+end
+end
+end
+end)
+end)
