@@ -22,81 +22,86 @@ Main.Size = UDim2.new(0, 108, 0, 363)
 Main.Active = true
 Main.Draggable = true
 
-Fly.Name = "Fly (Hold)"
+Fly.Name = "Fly"
 Fly.Parent = Main
 Fly.BackgroundColor3 = Color3.new(0.168627, 0.168627, 0.168627)
 Fly.BorderSizePixel = 0
 Fly.Position = UDim2.new(0, 0, 0.181818187, 0)
 Fly.Size = UDim2.new(0, 108, 0, 50)
-Fly.Text = "Fly (Jump To Fly)"
+Fly.Text = "Fly (Jump To Turn on/off"
 Fly.TextColor3 = Color3.new(1, 0.333333, 0)
 Fly.TextScaled = true
 Fly.Font = Enum.Font.Fantasy
+
+-- Fly functionality
 Fly.MouseButton1Down:Connect(function()
     local player = game.Players.LocalPlayer
     local character = player.Character or player.CharacterAdded:Wait()
     local humanoid = character:WaitForChild("Humanoid")
     local torso = character:WaitForChild("HumanoidRootPart")
-
+    
     local flying = false
     local speed = 50
     local UserInputService = game:GetService("UserInputService")
-    
+    local RunService = game:GetService("RunService")
+
+    local bodyGyro
+    local bodyVelocity
+
+    -- Function to start flying
     local function startFlying()
         flying = true
-        local bg = Instance.new("BodyGyro", torso)
-        bg.P = 9e4
-        bg.MaxTorque = Vector3.new(9e9, 9e9, 9e9)
+        
+        -- Create BodyGyro and BodyVelocity to control flying
+        bodyGyro = Instance.new("BodyGyro", torso)
+        bodyGyro.P = 9e4
+        bodyGyro.MaxTorque = Vector3.new(9e9, 9e9, 9e9)
 
-        local bv = Instance.new("BodyVelocity", torso)
-        bv.Velocity = Vector3.new(0, 0, 0)
-        bv.MaxForce = Vector3.new(9e9, 9e9, 9e9)
+        bodyVelocity = Instance.new("BodyVelocity", torso)
+        bodyVelocity.Velocity = Vector3.new(0, 0, 0)
+        bodyVelocity.MaxForce = Vector3.new(9e9, 9e9, 9e9)
 
-        while flying do
-            wait()
-            local camera = workspace.CurrentCamera
-            local lookVector = camera.CFrame.LookVector
-            
-            bv.Velocity = lookVector * speed + Vector3.new(0, 10, 0) -- Adjust the Y value for altitude
-            bg.CFrame = camera.CFrame
-        end
-
-        bg:Destroy()
-        bv:Destroy()
+        -- While flying, adjust the velocity and rotation to follow the camera's direction
+        RunService.Stepped:Connect(function()
+            if flying then
+                local camera = workspace.CurrentCamera
+                local lookVector = camera.CFrame.LookVector
+                
+                -- Adjust the velocity to move in the direction the camera is facing
+                bodyVelocity.Velocity = lookVector * speed + Vector3.new(0, 10, 0) -- Adjust altitude
+                bodyGyro.CFrame = camera.CFrame
+            end
+        end)
     end
 
+    -- Function to stop flying
     local function stopFlying()
         flying = false
+        if bodyGyro then bodyGyro:Destroy() end
+        if bodyVelocity then bodyVelocity:Destroy() end
     end
 
-    -- Toggle flying on button click
-    Fly.MouseButton1Down:Connect(function()
+    -- Toggle flying every time the player jumps
+    humanoid.StateChanged:Connect(function(oldState, newState)
+        if newState == Enum.HumanoidStateType.Jumping then
+            if flying then
+                stopFlying()
+            else
+                startFlying()
+            end
+        end
+    end)
+
+    -- Add mobile support for jumping/flying using the touch jump button
+    UserInputService.JumpRequest:Connect(function()
         if flying then
             stopFlying()
         else
             startFlying()
         end
     end)
-
-    -- Add mobile support
-    local function onTouchStarted()
-        if flying then
-            stopFlying()
-        else
-            startFlying()
-        end
-    end
-
-    local function onTouchEnded()
-        if flying then
-            stopFlying()
-        end
-    end
-
-    -- Mobile touch input detection
-    UserInputService.TouchTap:Connect(onTouchStarted)
-    UserInputService.TouchEnded:Connect(onTouchEnded)
 end)
+
 
 Name.Name = "Name"
 Name.Parent = Main
