@@ -6,7 +6,7 @@ local Invisible = Instance.new("TextButton")
 local InfiniteJump = Instance.new("TextButton")
 local BTools = 
 Instance.new("TextButton")
-local Admin = Instance.new("TextButton")
+local TurnOff = Instance.new("TextButton")
 local SpectateGUI = Instance.new("TextButton")
 
 -- Scripts
@@ -109,7 +109,7 @@ Name.BackgroundColor3 = Color3.new(0.168627, 0.168627, 0.168627)
 Name.BorderSizePixel = 0
 Name.Size = UDim2.new(0, 108, 0, 50)
 Name.Font = Enum.Font.Fantasy
-Name.Text = "Functions"
+Name.Text = "By D14n13l49"
 Name.TextColor3 = Color3.new(1, 0.666667, 0.498039)
 Name.TextScaled = true
 
@@ -119,7 +119,7 @@ Invisible.BackgroundColor3 = Color3.new(0.168627, 0.168627, 0.168627)
 Invisible.BorderSizePixel = 0
 Invisible.Position = UDim2.new(0, 0, 0.319559216, 0)
 Invisible.Size = UDim2.new(0, 108, 0, 50)
-Invisible.Text = "Invisible"
+Invisible.Text = "Invisible (Can Not Be Turned Off Unless Reset)"
 Invisible.TextColor3 = Color3.new(1, 0.333333, 0)
 Invisible.TextScaled = true
 Invisible.Font = Enum.Font.Fantasy
@@ -135,12 +135,12 @@ Invisible.MouseButton1Down:Connect(function()
     humanoidrootpart.Parent = player.Character
     player.Character:MoveTo(position)
     wait()
-    game.Players.LocalPlayer.Character.Torso.Transparency = 0.5
-    game.Players.LocalPlayer.Character.Head.Transparency = 0.5
-    game.Players.LocalPlayer.Character["Left Arm"].Transparency = 0.5
-    game.Players.LocalPlayer.Character["Right Arm"].Transparency = 0.5
-    game.Players.LocalPlayer.Character["Left Leg"].Transparency = 0.5
-    game.Players.LocalPlayer.Character["Right Leg"].Transparency = 0.5
+    game.Players.LocalPlayer.Character.Torso.Transparency = 1
+    game.Players.LocalPlayer.Character.Head.Transparency = 1
+    game.Players.LocalPlayer.Character["Left Arm"].Transparency = 1
+    game.Players.LocalPlayer.Character["Right Arm"].Transparency = 1
+    game.Players.LocalPlayer.Character["Left Leg"].Transparency = 1
+    game.Players.LocalPlayer.Character["Right Leg"].Transparency = 1
     game.Players.LocalPlayer.Character.Humanoid:RemoveAccessories()
     game.Players.LocalPlayer.Character.Head.face:Remove()
 end)
@@ -177,18 +177,20 @@ BTools.Font = Enum.Font.Fantasy
 BTools.MouseButton1Down:Connect(function()
 loadstring(game:GetObjects("rbxassetid://6695644299")[1].Source)()
     end)
-Admin.Name = "Admin"
-Admin.Parent = Main
-Admin.BackgroundColor3 = Color3.new(0.168627, 0.168627, 0.168627)
-Admin.BorderSizePixel = 0
-Admin.Position = UDim2.new(0, 0, 0.721763074, 0)
-Admin.Size = UDim2.new(0, 108, 0, 50)
-Admin.Text = "REMOVED"
-Admin.TextColor3 = Color3.new(1, 0.333333, 0)
-Admin.TextScaled = true
-Admin.TextSize = 14
-Admin.TextWrapped = true
-Admin.MouseButton1Down:connect(function()
+TurnOff.Name = "TurnOff"
+TurnOff.Parent = Main
+TurnOff.BackgroundColor3 = Color3.new(0.168627, 0.168627, 0.168627)
+TurnOff.BorderSizePixel = 0
+TurnOff.Position = UDim2.new(0, 0, 0.721763074, 0)
+TurnOff.Size = UDim2.new(0, 108, 0, 50)
+TurnOff.Text = "Reset"
+TurnOff.TextColor3 = Color3.new(1, 0.333333, 0)
+TurnOff.TextScaled = true
+TurnOff.TextSize = 14
+TurnOff.TextWrapped = true
+TurnOff.Font = Enum.Font.Fantasy
+TurnOff.MouseButton1Down:Connect(function()
+game.Players.LocalPlayer.Character.Humanoid.Health = 0
     end)
 SpectateGUI.Name = "Spectate GUI"
 SpectateGUI.Parent = Main
