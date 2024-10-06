@@ -257,6 +257,9 @@ loadstring(game:HttpGet('https://raw.githubusercontent.com/Kenjihin69/Kenjihin69
 Tab:Button("Sonic Moveset (Use Hero Hunter)", function()
 loadstring(game:HttpGet("https://raw.githubusercontent.com/TheScript101/D14n13l49-Hub/refs/heads/main/Sonic%20moveset"))()
   end)
+Tab:Button("Dio Moveset (Use Hero Hunter)", function()
+loadstring(game:HttpGet("https://raw.githubusercontent.com/Medley-Taboritsky/RobloxScripting/refs/heads/main/DIO_Garou_TSB"))()
+end)
 Tab:Button("Reaper Moveset (Use Metal Bat)", function()
 getgenv().Music = false 
 --Setting this to false usually fixes most executors
