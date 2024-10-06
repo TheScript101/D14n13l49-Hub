@@ -282,5 +282,5 @@ Tab:Label("Credits to all these people for helping me out :)")
 end)
 
 GetKeyButton.MouseButton1Click:Connect(function()
-    setclipboard("https://gateway.platoboost.com/l/74564/6hadah75") 
+    setclipboard("https://gateway.platoboost.com/l/74564/bfd4g4hc") 
 end)
