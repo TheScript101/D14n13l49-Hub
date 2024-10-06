@@ -123,7 +123,7 @@ SubmitButton.MouseButton1Click:Connect(function()
     local KeySystemText = KeySystem.Text
     if KeySystemText == "72JDKDKD1ACA-81QASZMMDNN-IEHENZOXOEPA12345" then   
         screenGui:Destroy()
-loadstring(game:HttpGet("https://raw.githubusercontent.com/TheScript101/D14n13l49-Hub/refs/heads/main/D14n13l49%20Hub%20Best%20Script%20LoL"))()
+loadstring(game:HttpGet("https://raw.githubusercontent.com/TheScript101/D14n13l49-Hub/refs/heads/main/Key%20System"))()
     end
 end)
 
