@@ -141,6 +141,9 @@ Invisible.MouseButton1Down:Connect(function()
     game.Players.LocalPlayer.Character["Right Arm"].Transparency = 0.5
     game.Players.LocalPlayer.Character["Left Leg"].Transparency = 0.5
     game.Players.LocalPlayer.Character["Right Leg"].Transparency = 0.5
+    game.Players.LocalPlayer.Character.Humanoid:RemoveAccessories()
+    game.Players.LocalPlayer.Character.Head.face:Remove()
+end)
 
 InfiniteJump.Name = "Infinite Jump"
 InfiniteJump.Parent = Main
