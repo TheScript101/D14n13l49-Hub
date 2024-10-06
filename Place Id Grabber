@@ -1,0 +1,19 @@
+    -- Place Id Grabber
+local placeId = game.PlaceId
+local success, message = pcall(function()
+    setclipboard(tostring(placeId))
+end)
+
+if success then
+    game.StarterGui:SetCore("SendNotification", {
+        Title = "Success";
+        Text = "Place ID: " .. placeId .. " has been copied to your clipboard.";
+        Duration = 5;
+    })
+else
+    game.StarterGui:SetCore("SendNotification", {
+        Title = "Failed";
+        Text = "Unable to copy Place ID to clipboard: " .. message;
+        Duration = 5;
+    })
+end
