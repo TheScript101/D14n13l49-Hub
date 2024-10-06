@@ -289,11 +289,25 @@ local character = game.Players.LocalPlayer.Character or game.Players.LocalPlayer
 local humanoid = character:WaitForChild("Humanoid")
 local animationTrack = humanoid:LoadAnimation(animation)
 
--- Set Animation Speed and Play on Tool Activation
+-- Function to play the animation and unequip the tool
+local function playAnimation()
+    animationTrack:Play()
+    animationTrack:AdjustSpeed(5) -- Set animation speed to 5x
+
+    -- Wait a brief moment to ensure the animation has started
+    wait(0.1) 
+
+    -- Reparent the tool to the backpack to simulate unequipping
+    Tool.Parent = game.Players.LocalPlayer.Backpack
+end
+
+-- Use the animation when the tool is equipped
+Tool.Equipped:Connect(function()
+    playAnimation() -- Play the animation and reparent the tool
+end)
+
+-- Handle tool activation (optional, if you want to allow manual activation)
 Tool.Activated:Connect(function()
-    for i = 1, 3 do
-        animationTrack:Play()
-        animationTrack:AdjustSpeed(5) -- Set animation speed to 5x
-        animationTrack.Stopped:Wait() -- Wait for the animation to finish before looping
-    end
+    playAnimation() -- Play the animation when activated
+    Tool.Parent = game.Players.LocalPlayer.Backpack -- Reparent immediately after activation
 end)
