@@ -1,0 +1,171 @@
+-- Teleport to coordinates and wait
+local player = game.Players.LocalPlayer
+local character = player.Character or player.CharacterAdded:Wait()
+local humanoidRootPart = character:WaitForChild("HumanoidRootPart")
+
+humanoidRootPart.CFrame = CFrame.new(Vector3.new(-810.16, 329.9, 3.99))
+wait(0.5)
+-- Variables
+local player = game.Players.LocalPlayer
+local character = player.Character or player.CharacterAdded:Wait()
+
+-- URL for the Red Eyes face image
+local faceTextureId = "rbxassetid://838671414" -- This is the asset ID for the face
+
+-- Function to darken the character (but not fully black) and change the face
+local function applyEffect()
+    -- Darken all body parts (dark gray instead of full black)
+    for _, part in pairs(character:GetChildren()) do
+        if part:IsA("BasePart") then
+            part.Color = Color3.new(0.1, 0.1, 0.1) -- Set the character's parts to a dark gray (lighter black)
+        end
+    end
+    
+    -- Create a highlight with a white outline
+    local highlight = Instance.new("Highlight")
+    highlight.Parent = character
+    highlight.FillColor = Color3.new(0.1, 0.1, 0.1) -- Dark gray highlight
+    highlight.OutlineColor = Color3.new(1, 1, 1) -- White outline
+    highlight.FillTransparency = 0.2 -- Slightly transparent dark fill
+    highlight.OutlineTransparency = 0 -- Fully visible white outline
+    
+    -- Change the face of the character
+    local head = character:FindFirstChild("Head")
+    if head then
+        -- Remove any existing face decals
+        local oldFace = head:FindFirstChildOfClass("Decal")
+        if oldFace then
+            oldFace:Destroy()
+        end
+        
+        -- Create a new decal for the face
+        local newFace = Instance.new("Decal")
+        newFace.Name = "Face"
+        newFace.Texture = faceTextureId -- Apply the Red Eyes face texture
+        newFace.Face = Enum.NormalId.Front -- Ensure the face appears on the front of the head
+        newFace.Parent = head
+    end
+end
+
+    applyEffect()
+    wait(0.5)
+-- Play background music (looping, with volume set to 3)
+local sound = Instance.new("Sound")
+sound.SoundId = "rbxassetid://1843006318" -- Night Ninja music
+sound.Looped = true
+sound.Volume = 3.8 -- Set to medium volume
+sound.Parent = humanoidRootPart
+sound:Play()
+
+-- Stop music upon reset or death
+player.CharacterAdded:Connect(function()
+    if sound then
+        sound:Stop()
+    end
+end)
+
+-- Rename tool and glove section (Client-side)
+local tool = player.Backpack:FindFirstChildOfClass("Tool") or player.Character:FindFirstChildOfClass("Tool")
+if tool then
+    tool.Name = "Ninja"
+end
+local leaderboard = game:GetService("Players")[player.Name]:FindFirstChild("leaderstats")
+if leaderboard and leaderboard:FindFirstChild("Glove") then
+    leaderboard.Glove.Value = "Ninja"
+end
+
+-- Helper function to get the nearest player
+local function getNearestPlayer()
+    local closestPlayer = nil
+    local shortestDistance = math.huge
+    for _, v in pairs(game.Players:GetPlayers()) do
+        if v ~= player and v.Character and v.Character:FindFirstChild("HumanoidRootPart") then
+            local distance = (v.Character.HumanoidRootPart.Position - humanoidRootPart.Position).Magnitude
+            if distance < shortestDistance then
+                shortestDistance = distance
+                closestPlayer = v
+            end
+        end
+    end
+    return closestPlayer
+end
+
+-- R Keybind action
+local UIS = game:GetService("UserInputService")
+local cooldown = false
+
+UIS.InputBegan:Connect(function(input)
+    if input.KeyCode == Enum.KeyCode.R and not cooldown then
+        cooldown = true
+        game:GetService("ReplicatedStorage").Prop:FireServer()
+
+        -- Make player invisible (body and accessories like hair and hats)
+        for _, v in pairs(character:GetChildren()) do
+            if v:IsA("BasePart") then
+                v.Transparency = 1 -- Make body invisible
+            elseif v:IsA("Accessory") then
+                v.Handle.Transparency = 1 -- Make accessories (e.g., hair, hats) invisible
+            end
+        end
+        character.Humanoid.WalkSpeed = 40 -- Set speed to 40
+        
+        wait(8) -- Wait 8 seconds
+
+        -- Restore visibility and speed
+        for _, v in pairs(character:GetChildren()) do
+            if v:IsA("BasePart") then
+                v.Transparency = 0 -- Restore body visibility
+            elseif v:IsA("Accessory") then
+                v.Handle.Transparency = 0 -- Restore accessories' visibility
+            end
+        end
+        character.Humanoid.WalkSpeed = 16 -- Reset to default speed (16)
+
+        wait(5) -- Cooldown period before using again
+        cooldown = false
+    end
+end)
+
+-- T Keybind action
+UIS.InputBegan:Connect(function(input)
+    if input.KeyCode == Enum.KeyCode.T then
+        local animation = Instance.new("Animation")
+        animation.AnimationId = "rbxassetid://15505686151"
+        local humanoid = character:WaitForChild("Humanoid")
+        local animTrack = humanoid:LoadAnimation(animation)
+        animTrack:Play()
+
+        wait(0.2)
+
+        -- Fire server for RetroAbility: Rocket Launcher
+        game:GetService("ReplicatedStorage").RetroAbility:FireServer("Rocket Launcher")
+        
+        for _ = 1, 3 do
+            -- Repeat action 3 times if necessary (you can adjust as needed)
+        end
+    end
+end)
+
+-- C Keybind action: Teleport behind nearest player and align facing direction
+UIS.InputBegan:Connect(function(input)
+    if input.KeyCode == Enum.KeyCode.C then
+        local nearestPlayer = getNearestPlayer()
+        if nearestPlayer and nearestPlayer.Character and nearestPlayer.Character:FindFirstChild("HumanoidRootPart") then
+            local targetHRP = nearestPlayer.Character.HumanoidRootPart
+            
+            -- Teleport 3 studs behind the nearest player
+            humanoidRootPart.CFrame = targetHRP.CFrame * CFrame.new(0, 0, 3)
+            
+            -- Face the same direction as the nearest player
+            humanoidRootPart.CFrame = CFrame.new(humanoidRootPart.Position, targetHRP.Position + targetHRP.CFrame.LookVector)
+
+            -- Simulate a click (holding a tool)
+            if tool then
+                tool:Activate() -- Simulate clicking while holding the tool
+            end
+            
+            -- Fire the "Prop" event from the R keybind
+            game:GetService("ReplicatedStorage").Prop:FireServer()
+        end
+    end
+end)
