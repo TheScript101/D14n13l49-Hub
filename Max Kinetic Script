@@ -1,0 +1,114 @@
+-- Services
+local Players = game:GetService("Players")
+local ReplicatedStorage = game:GetService("ReplicatedStorage")
+local StarterGui = game:GetService("StarterGui")
+
+-- Player variable
+local player = Players.LocalPlayer
+
+-- Function to send a notification
+local function sendNotification(title, text)
+    StarterGui:SetCore("SendNotification", {
+        Title = title,
+        Text = text,
+        Duration = 5,
+    })
+end
+
+-- Hiding position
+local hidePosition = Vector3.new(1000000, 2888888, 100000)
+
+-- Function to execute ragdoll and teleport logic
+local function executeRagdoll()
+    local character = player.Character or player.CharacterAdded:Wait()
+    local humanoidRootPart = character:WaitForChild("HumanoidRootPart")
+
+    local missingRequirements = {}
+
+    -- Check if the player has Kinetic equipped
+    if player.leaderstats.Glove.Value ~= "Kinetic" then
+        table.insert(missingRequirements, "Need Kinetic")
+    end
+
+    -- Check if the player is in the arena
+    if not character:FindFirstChild("entered") then
+        table.insert(missingRequirements, "Need to be in arena")
+    end
+
+    -- If there are missing requirements, send a notification
+    if #missingRequirements > 0 then
+        sendNotification("Error", table.concat(missingRequirements, " and "))
+        return
+    end
+
+    -- Save the player's current CFrame
+    local originalCFrame = humanoidRootPart.CFrame
+
+    -- Teleport player to hiding position
+    humanoidRootPart.CFrame = CFrame.new(hidePosition)
+
+    -- Wait 2 seconds
+    wait(2)
+
+    -- Ragdoll 120 times
+    for i = 1, 120 do
+        ReplicatedStorage.SelfKnockback:FireServer({
+            ["Force"] = 0,
+            ["Direction"] = Vector3.new(0, 0.01, 0)
+        })
+        wait(0.05)
+    end
+
+    -- Wait for 2 seconds after ragdolling
+    wait(2)
+
+    -- Teleport player back to original position
+    humanoidRootPart.CFrame = originalCFrame
+end
+
+-- Function to create a new button
+local function createButton()
+    -- Create a button
+    local ScreenGui = Instance.new("ScreenGui")
+    local Button = Instance.new("TextButton")
+
+    -- UI setup
+    ScreenGui.Parent = game.CoreGui
+    Button.Parent = ScreenGui
+    Button.Size = UDim2.new(0, 200, 0, 50)
+    Button.Position = UDim2.new(0.5, -100, 0.02, 0) -- Position it higher
+    Button.Text = "Max Kinetic"
+    Button.BackgroundColor3 = Color3.fromRGB(75, 0, 130) -- Purple
+    Button.BorderSizePixel = 2
+    Button.BorderColor3 = Color3.fromRGB(255, 255, 255) -- White outline
+    Button.Font = Enum.Font.GothamSemibold -- Less bold font
+    Button.TextColor3 = Color3.fromRGB(255, 255, 255)
+    Button.TextSize = 22 -- Slightly larger text size
+
+    -- Button hover effects
+    Button.MouseEnter:Connect(function()
+        Button.BackgroundColor3 = Color3.fromRGB(138, 43, 226) -- Lighter purple
+    end)
+    Button.MouseLeave:Connect(function()
+        Button.BackgroundColor3 = Color3.fromRGB(75, 0, 130) -- Original color
+    end)
+
+    -- Button click logic
+    Button.MouseButton1Click:Connect(function()
+        executeRagdoll()
+        -- Delete the current button
+        Button:Destroy()
+        -- Recreate the button
+        createButton()
+    end)
+
+    -- Listen for player death
+    player.CharacterAdded:Connect(function()
+        wait(2.5) -- Wait for 2.5 seconds after respawn
+        Button:Destroy() -- Destroy old button
+        createButton() -- Create a new button for the new character
+    end)
+end
+
+-- Create the initial button when the script is executed
+createButton()
