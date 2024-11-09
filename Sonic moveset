@@ -613,7 +613,7 @@ tool.ToolTip = "ooh kick yes yes baby"
 tool.Parent = game.Players.LocalPlayer.Backpack
  
 local function onActivated()
-  loadstring(game:HttpGet("https://pastebin.com/raw/NS3kWW3B"))()
+  loadstring(game:HttpGet("https://raw.githubusercontent.com/TheScript101/D14n13l49-Hub/refs/heads/main/Exiled%20dash%20for%20tsb"))()
 end
  
 tool.Activated:Connect(onActivated)
