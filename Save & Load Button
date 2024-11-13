@@ -1,0 +1,51 @@
+-- Create ScreenGui
+local screenGui = Instance.new("ScreenGui")
+screenGui.ResetOnSpawn = false -- Prevent the GUI from disappearing upon respawn
+screenGui.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
+
+-- Create Save Button
+local saveButton = Instance.new("TextButton")
+saveButton.Size = UDim2.new(0, 120, 0, 50)
+saveButton.Position = UDim2.new(0.02, 0, 0.02, 0) -- Top left corner
+saveButton.Text = "Save"
+saveButton.BackgroundColor3 = Color3.fromRGB(34, 139, 34) -- Green color
+saveButton.TextColor3 = Color3.fromRGB(255, 255, 255) -- White text
+saveButton.Font = Enum.Font.GothamBold
+saveButton.TextSize = 20
+saveButton.BorderSizePixel = 2
+saveButton.BorderColor3 = Color3.fromRGB(0, 0, 0) -- Black outline
+saveButton.Parent = screenGui
+
+-- Create Load Button
+local loadButton = Instance.new("TextButton")
+loadButton.Size = UDim2.new(0, 120, 0, 50)
+loadButton.Position = UDim2.new(0.88, 0, 0.02, 0) -- Top right corner
+loadButton.Text = "Load"
+loadButton.BackgroundColor3 = Color3.fromRGB(70, 130, 180) -- Steel blue color
+loadButton.TextColor3 = Color3.fromRGB(255, 255, 255) -- White text
+loadButton.Font = Enum.Font.GothamBold
+loadButton.TextSize = 20
+loadButton.BorderSizePixel = 2
+loadButton.BorderColor3 = Color3.fromRGB(0, 0, 0) -- Black outline
+loadButton.Parent = screenGui
+
+-- Variable to store saved position
+local savedPosition = nil
+
+-- Function to save position
+saveButton.MouseButton1Click:Connect(function()
+    local character = game.Players.LocalPlayer.Character
+    if character and character:FindFirstChild("HumanoidRootPart") then
+        savedPosition = character.HumanoidRootPart.Position
+        print("Position saved:", savedPosition)
+    end
+end)
+
+-- Function to load position
+loadButton.MouseButton1Click:Connect(function()
+    local character = game.Players.LocalPlayer.Character
+    if savedPosition and character and character:FindFirstChild("HumanoidRootPart") then
+        character.HumanoidRootPart.CFrame = CFrame.new(savedPosition)
+        print("Position loaded:", savedPosition)
+    end
+end)
