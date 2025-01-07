@@ -1,3 +1,76 @@
+--ez load dupe gui
+
+-- Create the GUI
+local screenGui = Instance.new("ScreenGui")
+screenGui.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
+
+local frame = Instance.new("Frame")
+frame.Parent = screenGui
+frame.Size = UDim2.new(0, 400, 0, 200)
+frame.Position = UDim2.new(0.5, -200, 0.5, -100)
+frame.BackgroundColor3 = Color3.new(0, 0, 0)
+frame.BackgroundTransparency = 0.5
+
+local titleLabel = Instance.new("TextLabel")
+titleLabel.Parent = frame
+titleLabel.Size = UDim2.new(1, 0, 0.3, 0)
+titleLabel.Position = UDim2.new(0, 0, 0, 10)
+titleLabel.Text = "Enable dupe gui?"
+titleLabel.TextColor3 = Color3.new(1, 1, 1)
+titleLabel.TextSize = 35
+titleLabel.Font = Enum.Font.GothamBlack
+titleLabel.BackgroundTransparency = 1
+
+local yesButton = Instance.new("TextButton")
+yesButton.Parent = frame
+yesButton.Size = UDim2.new(0.45, 0, 0.3, 0)
+yesButton.Position = UDim2.new(0.03, 0, 0.6, 0)
+yesButton.Text = "Yes"
+yesButton.TextColor3 = Color3.new(1, 1, 1)
+yesButton.BackgroundColor3 = Color3.new(0, 1, 0)
+yesButton.Font = Enum.Font.GothamBlack
+yesButton.TextSize = 25
+
+local noButton = Instance.new("TextButton")
+noButton.Parent = frame
+noButton.Size = UDim2.new(0.45, 0, 0.3, 0)
+noButton.Position = UDim2.new(0.52, 0, 0.6, 0)
+noButton.Text = "No"
+noButton.TextColor3 = Color3.new(1, 1, 1)
+noButton.BackgroundColor3 = Color3.new(1, 0, 0)
+noButton.Font = Enum.Font.GothamBlack
+noButton.TextSize = 25
+
+-- When "Yes" is clicked, execute the dupe script
+yesButton.MouseButton1Click:Connect(function()
+    -- Remove the GUI
+    screenGui:Destroy()
+
+    -- Execute the dupe script
+    loadstring(game:HttpGet("https://rawscripts.net/raw/Universal-Script-Op-minecraft-dupe-and-more-16078"))()
+end)
+
+-- When "No" is clicked, remove the GUI and resume normal behavior
+noButton.MouseButton1Click:Connect(function()
+    screenGui:Destroy()
+end)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 --ez keyboard script
 
 local UIS = game:GetService("UserInputService")
