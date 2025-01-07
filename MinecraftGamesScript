@@ -1,3 +1,78 @@
+--ez keyboard script
+
+local UIS = game:GetService("UserInputService")
+local VirtualUser = game:GetService("VirtualUser")
+local ContentProvider = game:GetService("ContentProvider")
+
+local gui = Instance.new("ScreenGui", game.CoreGui)
+gui.ResetOnSpawn = false
+
+-- Create the button
+local button = Instance.new("TextButton")
+button.Parent = gui
+button.Size = UDim2.new(0, 120, 0, 50)  -- Adjusted size for text
+button.Position = UDim2.new(1, -10, 0, 10)  -- Positioned at the top-right
+button.AnchorPoint = Vector2.new(1, 0)
+button.BackgroundColor3 = Color3.new(0, 0, 0)
+button.BackgroundTransparency = 0.6
+button.BorderColor3 = Color3.new(1, 1, 1)
+button.Text = "Toggle"
+button.TextColor3 = Color3.new(1, 1, 1)  -- White text
+button.TextSize = 18
+button.Font = Enum.Font.GothamBlack  -- Using Gotham Black font
+
+-- Preload sound (optional, if you want to add sound later)
+-- local sound = Instance.new("Sound", button)
+-- sound.SoundId = "rbxassetid://72841109192126"
+-- sound.Volume = 1
+-- ContentProvider:PreloadAsync({sound.SoundId})
+
+-- Draggable functionality
+local dragging, dragInput, dragStart, startPos
+
+local function update(input)
+    local delta = input.Position - dragStart
+    button.Position = UDim2.new(startPos.X.Scale, startPos.X.Offset + delta.X, startPos.Y.Scale, startPos.Y.Offset + delta.Y)
+end
+
+button.InputBegan:Connect(function(input)
+    if input.UserInputType == Enum.UserInputType.MouseButton1 then
+        dragging = true
+        dragStart = input.Position
+        startPos = button.Position
+        input.Changed:Connect(function()
+            if input.UserInputState == Enum.UserInputState.End then
+                dragging = false
+            end
+        end)
+    end
+end)
+
+button.InputChanged:Connect(function(input)
+    if input.UserInputType == Enum.UserInputType.MouseMovement then
+        dragInput = input
+    end
+end)
+
+UIS.InputChanged:Connect(function(input)
+    if input == dragInput and dragging then
+        update(input)
+    end
+end)
+
+-- Key press functionality
+button.MouseButton1Click:Connect(function()
+    VirtualUser:CaptureController()
+    keypress(0xA1)  -- Hexadecimal for the RightShift key
+    wait(0.1)
+    keyrelease(0xA1)  -- Release the RightShift key
+end)
+
+
+
+--now to minecraft stuff
+
+
 --[=[
  d888b  db    db d888888b      .d888b.      db      db    db  .d8b.  
 88' Y8b 88    88   `88'        VP  `8D      88      88    88 d8' `8b 
