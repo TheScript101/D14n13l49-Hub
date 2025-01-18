@@ -1,0 +1,184 @@
+-- Create GUI elements
+local screenGui = Instance.new("ScreenGui", game.CoreGui)
+local toggleButton = Instance.new("TextButton", screenGui)
+local frame = Instance.new("Frame", screenGui)
+local textBox = Instance.new("TextBox", frame)
+local scrollFrame = Instance.new("ScrollingFrame", frame)
+local resultButtons = {} -- Store result buttons for multiple choices
+local spawnDialog = nil -- Dialog reference
+local yesButton = nil -- Yes button reference
+local noButton = nil -- No button reference
+local spawnObject = nil -- Reference to object to spawn
+
+-- Toggle button properties
+toggleButton.Size = UDim2.new(0, 100, 0, 40)
+toggleButton.Position = UDim2.new(1, -110, 0, 10) -- Top-right corner
+toggleButton.Text = "Toggle Search"
+toggleButton.BackgroundColor3 = Color3.new(0.3, 0.3, 0.3)
+toggleButton.TextColor3 = Color3.new(1, 1, 1)
+toggleButton.BorderSizePixel = 2
+
+-- Frame properties
+frame.Size = UDim2.new(0, 300, 0, 400)
+frame.Position = UDim2.new(0.5, -150, 0.5, -150)
+frame.BackgroundColor3 = Color3.new(0.2, 0.2, 0.2)
+frame.BorderSizePixel = 2
+frame.Visible = false -- Start hidden
+
+-- TextBox properties (search bar)
+textBox.Size = UDim2.new(1, -20, 0, 30)
+textBox.Position = UDim2.new(0, 10, 0, 10)
+textBox.PlaceholderText = "Enter object name to search"
+textBox.Text = ""
+textBox.TextScaled = true
+textBox.BackgroundColor3 = Color3.new(1, 1, 1)
+textBox.TextColor3 = Color3.new(0, 0, 0)
+
+-- Scrolling frame properties for results
+scrollFrame.Size = UDim2.new(1, -20, 1, -50)
+scrollFrame.Position = UDim2.new(0, 10, 0, 50)
+scrollFrame.CanvasSize = UDim2.new(0, 0, 0, 0)
+scrollFrame.ScrollBarThickness = 8
+
+-- Create spawn confirmation dialog (position it outside the frame at the top-right)
+spawnDialog = Instance.new("Frame", screenGui) -- Change parent to screenGui
+spawnDialog.Size = UDim2.new(0, 200, 0, 100)
+spawnDialog.Position = UDim2.new(1, -210, 0, 10) -- Top-right outside of the frame
+spawnDialog.BackgroundColor3 = Color3.new(0.3, 0.3, 0.3)
+spawnDialog.Visible = false
+
+local dialogText = Instance.new("TextLabel", spawnDialog)
+dialogText.Size = UDim2.new(1, -20, 0, 30)
+dialogText.Position = UDim2.new(0, 10, 0, 10)
+dialogText.Text = "Do you want to spawn this object?"
+dialogText.TextColor3 = Color3.new(1, 1, 1)
+dialogText.BackgroundTransparency = 1
+dialogText.TextScaled = true
+
+-- Yes and No buttons inside the spawn confirmation dialog
+yesButton = Instance.new("TextButton", spawnDialog)
+yesButton.Size = UDim2.new(0, 80, 0, 30)
+yesButton.Position = UDim2.new(0, 10, 0, 50)
+yesButton.Text = "Yes"
+yesButton.BackgroundColor3 = Color3.new(0.3, 0.8, 0.3)
+yesButton.TextColor3 = Color3.new(1, 1, 1)
+
+noButton = Instance.new("TextButton", spawnDialog)
+noButton.Size = UDim2.new(0, 80, 0, 30)
+noButton.Position = UDim2.new(0, 110, 0, 50)
+noButton.Text = "No"
+noButton.BackgroundColor3 = Color3.new(0.8, 0.3, 0.3)
+noButton.TextColor3 = Color3.new(1, 1, 1)
+
+-- Toggle button click event
+local isFrameVisible = false
+toggleButton.MouseButton1Click:Connect(function()
+    isFrameVisible = not isFrameVisible
+    frame.Visible = isFrameVisible
+end)
+
+-- Helper function to make VFX visible
+local function makeVFXVisible(part)
+    for _, child in ipairs(part:GetDescendants()) do
+        if child:IsA("ParticleEmitter") or child:IsA("Beam") or child:IsA("Trail") then
+            child.Enabled = true
+        end
+    end
+end
+
+-- Search function
+local function searchAndClone(name)
+    local results = {}
+    local function search(obj)
+        if obj.Name:lower():find(name:lower()) then
+            table.insert(results, obj)
+        end
+        for _, child in ipairs(obj:GetChildren()) do
+            search(child)
+        end
+    end
+    search(game)
+    return results
+end
+
+-- Clone function (will not spawn until confirmed)
+local function cloneObject(object)
+    spawnObject = object -- Store object for later spawning
+    spawnDialog.Visible = true -- Show spawn confirmation dialog
+end
+
+-- Spawn the object in front of the player
+local function spawnConfirmedObject()
+    if spawnObject then
+        local player = game.Players.LocalPlayer
+        local character = player.Character or player.CharacterAdded:Wait()
+        local humanoidRootPart = character:FindFirstChild("HumanoidRootPart")
+        
+        if humanoidRootPart then
+            local clone = spawnObject:Clone()
+            clone.Parent = workspace
+            makeVFXVisible(clone)
+            
+            -- Set the position in front of the player
+            local forwardDirection = humanoidRootPart.CFrame.LookVector
+            local newPosition = humanoidRootPart.Position + forwardDirection * 5
+            if clone:IsA("Model") and clone.PrimaryPart then
+                clone:SetPrimaryPartCFrame(CFrame.new(newPosition))
+            elseif clone:IsA("BasePart") then
+                clone.CFrame = CFrame.new(newPosition)
+            else
+                warn("Unable to position object; make sure it has a BasePart or PrimaryPart set.")
+            end
+        else
+            warn("Could not find HumanoidRootPart")
+        end
+    end
+end
+
+-- Update result buttons for selecting
+local function updateResultButtons(results)
+    scrollFrame:ClearAllChildren()
+    resultButtons = {}
+    for i, result in ipairs(results) do
+        local button = Instance.new("TextButton", scrollFrame)
+        button.Size = UDim2.new(1, -10, 0, 30)
+        button.Position = UDim2.new(0, 5, 0, (i - 1) * 35)
+        button.Text = result.Name
+        button.BackgroundColor3 = Color3.new(0.3, 0.3, 0.3)
+        button.TextColor3 = Color3.new(1, 1, 1)
+        button.MouseButton1Click:Connect(function()
+            cloneObject(result) -- Show confirmation dialog instead of cloning immediately
+        end)
+        scrollFrame.CanvasSize = UDim2.new(0, 0, 0, i * 35)
+        table.insert(resultButtons, button)
+    end
+end
+
+-- Search and display results
+textBox.FocusLost:Connect(function(enterPressed)
+    if enterPressed then
+        local searchName = textBox.Text
+        if searchName ~= "" then
+            local results = searchAndClone(searchName)
+            if #results > 0 then
+                updateResultButtons(results)
+            else
+                local noResultButton = Instance.new("TextLabel", scrollFrame)
+                noResultButton.Size = UDim2.new(1, -10, 0, 30)
+                noResultButton.Text = "No results found"
+                noResultButton.TextColor3 = Color3.new(1, 0, 0)
+                scrollFrame.CanvasSize = UDim2.new(0, 0, 0, 30)
+            end
+        end
+    end
+end)
+
+-- Handle Yes/No dialog actions
+yesButton.MouseButton1Click:Connect(function()
+    spawnDialog.Visible = false -- Hide the dialog
+    spawnConfirmedObject() -- Spawn the object
+end)
+
+noButton.MouseButton1Click:Connect(function()
+    spawnDialog.Visible = false -- Hide the dialog without spawning
+end)
