@@ -1,0 +1,12 @@
+--[[
+ .____                  ________ ___.    _____                           __                
+ |    |    __ _______   \_____  \\_ |___/ ____\_ __  ______ ____ _____ _/  |_  ___________ 
+ |    |   |  |  \__  \   /   |   \| __ \   __\  |  \/  ___// ___\\__  \\   __\/  _ \_  __ \
+ |    |___|  |  // __ \_/    |    \ \_\ \  | |  |  /\___ \\  \___ / __ \|  | (  <_> )  | \/
+ |_______ \____/(____  /\_______  /___  /__| |____//____  >\___  >____  /__|  \____/|__|   
+         \/          \/         \/    \/                \/     \/     \/                   
+          \_Welcome to LuaObfuscator.com   (Alpha 0.10.8) ~  Much Love, Ferib 
+
+]]--
+
+local v0=Instance.new("Part");for v3,v4 in pairs(getreg()) do if ((type(v4)=="table") and  #v4) then if (rawget(v4,"__mode")=="kvs") then for v11,v12 in pairs(v4) do if (v12==v0) then getgenv().InstanceList=v4;break;end end end end end local v1={};v1.invalidate=function(v5) if  not InstanceList then return;end for v6,v7 in pairs(InstanceList) do if (v7==v5) then local v10=0 -0 ;while true do if (v10==(0 -0)) then InstanceList[v6]=nil;return v5;end end end end end;if  not cloneref then getgenv().cloneref=v1.invalidate;end
