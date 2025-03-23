@@ -1,0 +1,14 @@
+local player = game.Players.LocalPlayer
+local gui = Instance.new("ScreenGui")
+gui.Parent = player:FindFirstChild("PlayerGui")
+
+local textLabel = Instance.new("TextLabel")
+textLabel.Parent = gui
+textLabel.Text = "Made By D14n13l49"
+textLabel.Font = Enum.Font.GothamBold -- Clean and modern font
+textLabel.TextSize = 18 -- Not too big, but readable
+textLabel.TextColor3 = Color3.fromRGB(255, 255, 255) -- White text
+textLabel.BackgroundTransparency = 1 -- Invisible background
+textLabel.Size = UDim2.new(0, 200, 0, 30) -- Decent size
+textLabel.Position = UDim2.new(0.5, -100, 1, -40) -- Centered near bottom
+
